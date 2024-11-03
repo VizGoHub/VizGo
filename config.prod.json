@@ -1,0 +1,6 @@
+{
+  "log_path": "/data/viz/log",
+  "log_level": "",
+  "db": "sqlite",
+  "dsn": "viz.db"
+}
