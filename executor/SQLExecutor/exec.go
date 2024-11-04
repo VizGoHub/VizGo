@@ -33,7 +33,7 @@ func (ec *SQLExecutor) Query(querySql string) ([]map[string]interface{}, error) 
 	var err error
 	var results []map[string]interface{}
 
-	logger.Info(querySql)
+	//logger.Info(querySql)
 	tx := ec.DB.Raw(querySql).Scan(&results)
 	if tx != nil {
 		return results, err

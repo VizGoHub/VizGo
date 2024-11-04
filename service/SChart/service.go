@@ -15,22 +15,27 @@ func GetLineChart(chartID int64) map[string]interface{} {
 	chart := DChart.GetChart(chartID)
 	chartDatasets := DChartDatasets.GetChartDatasets(chartID)
 	var datasets []TChartDatasets.JChartDatasets
-
+	var legends []string
 	for _, dataset := range chartDatasets {
 		item := TChartDatasets.JChartDatasets{
-			Label:           dataset.Label,
-			BackgroundColor: dataset.BackgroundColor,
-			BorderColor:     dataset.BorderColor,
-			BorderWidth:     dataset.BorderWidth,
-			Data:            toArray(dataset.ColumnData),
+			Name:  dataset.Label,
+			Type:  dataset.ChartType,
+			Color: dataset.BorderColor,
+			LineStyle: TChartDatasets.JLineStyle{
+				Width: dataset.BorderWidth,
+				Type:  dataset.BorderType,
+			},
+			Data: toArray(dataset.ColumnData),
 		}
 		datasets = append(datasets, item)
+		legends = append(legends, dataset.Label)
 	}
 
 	data := map[string]interface{}{
 		"name":     chart.ChartName,
 		"labels":   toArray(chart.Labels),
 		"datasets": datasets,
+		"legends":  legends,
 	}
 
 	//sData, _ := json.Marshal(data)
