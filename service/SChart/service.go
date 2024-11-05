@@ -67,6 +67,13 @@ func GetTreeMapChart(chartID int64) map[string]interface{} {
 		}
 		datasets = append(datasets, item)
 	}
+	if len(datasets) == 0 {
+		item := TChartDatasets.JChartDatasetsTreeMap{
+			Name:  "No Data",
+			Value: 1,
+		}
+		datasets = append(datasets, item)
+	}
 
 	data := map[string]interface{}{
 		"type":     "treemap",
