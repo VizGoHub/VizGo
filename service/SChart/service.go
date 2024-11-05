@@ -11,6 +11,11 @@ import (
 
 var logger = libs.GetLogger()
 
+func GetChart(chartID int64) TChart.TChart {
+	chart := DChart.GetChart(chartID)
+	return chart
+}
+
 func GetLineChart(chartID int64) map[string]interface{} {
 	chart := DChart.GetChart(chartID)
 	chartDatasets := DChartDatasets.GetChartDatasets(chartID)
@@ -43,6 +48,34 @@ func GetLineChart(chartID int64) map[string]interface{} {
 	return data
 }
 
+func GetTreeMapChart(chartID int64) map[string]interface{} {
+	chart := DChart.GetChart(chartID)
+	labels := toJsonArray(chart.Labels)
+	chartDatasets := DChartDatasets.GetChartDatasets(chartID)
+	columnData := toJsonArray(chartDatasets[0].ColumnData)
+
+	var datasets []TChartDatasets.JChartDatasetsTreeMap
+	for i, it := range labels {
+		item := TChartDatasets.JChartDatasetsTreeMap{
+			Name:  it.String(),
+			Value: columnData[i].Int(),
+		}
+		if columnData[i].Int() == 0 {
+			item.ItemStyle = TChartDatasets.JItemStyle{
+				Color: chartDatasets[0].BorderColor,
+			}
+		}
+		datasets = append(datasets, item)
+	}
+
+	data := map[string]interface{}{
+		"type":     "treemap",
+		"name":     chart.ChartName,
+		"datasets": datasets,
+	}
+	return data
+}
+
 func toArray(s string) []interface{} {
 	dArray := gjson.Parse(s).Array()
 	var iArray []interface{}
@@ -50,6 +83,10 @@ func toArray(s string) []interface{} {
 		iArray = append(iArray, it.Value())
 	}
 	return iArray
+}
+
+func toJsonArray(s string) []gjson.Result {
+	return gjson.Parse(s).Array()
 }
 
 func GetALLCharts() []TChart.JChart {

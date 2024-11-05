@@ -32,3 +32,13 @@ type JChartDatasets struct {
 	LineStyle JLineStyle    `json:"lineStyle,omitempty"`
 	Data      []interface{} `json:"data,omitempty"`
 }
+
+type JItemStyle struct {
+	Color string `json:"color,omitempty"`
+}
+
+type JChartDatasetsTreeMap struct {
+	Name      string     `json:"name"`
+	Value     int64      `json:"value,omitempty"`
+	ItemStyle JItemStyle `json:"itemStyle"`
+}

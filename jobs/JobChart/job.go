@@ -9,6 +9,7 @@ import (
 	"VizGo/libs"
 	"encoding/json"
 	"github.com/jasonlvhit/gocron"
+	"time"
 )
 
 var logger = libs.GetLogger()
@@ -29,6 +30,7 @@ func Worker() {
 	tCharts := DChart.GetALLCharts()
 	logger.Info("JobChart, tasks=", len(tCharts))
 	for _, item := range tCharts {
+		time.Sleep(3 * time.Second)
 		job(item)
 	}
 }

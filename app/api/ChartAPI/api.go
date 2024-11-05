@@ -20,7 +20,16 @@ func Run() {
 	router.GET("/api/chart/:chartID", func(c *gin.Context) {
 		chartID_ := c.Param("chartID")
 		chartID, _ := strconv.Atoi(chartID_)
-		chart := SChart.GetLineChart(int64(chartID))
+		chartBase := SChart.GetChart(int64(chartID))
+		var chart any
+		if chartBase.ChartType == "line" {
+			chart = SChart.GetLineChart(int64(chartID))
+		}
+
+		if chartBase.ChartType == "treemap" {
+			chart = SChart.GetTreeMapChart(int64(chartID))
+		}
+
 		c.JSON(http.StatusOK, gin.H{"code": 0, "message": "ok", "data": chart})
 	})
 
