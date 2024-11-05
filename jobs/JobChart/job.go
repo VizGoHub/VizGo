@@ -17,7 +17,7 @@ var s = gocron.NewScheduler()
 
 func Run() {
 	logger.Info("JobChart Starting")
-	s.Every(30).Second().Do(Worker)
+	s.Every(60).Second().Do(Worker)
 	s.Start()
 }
 
