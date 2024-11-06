@@ -30,6 +30,10 @@ func Run() {
 			chart = SChart.GetTreeMapChart(int64(chartID))
 		}
 
+		if chartBase.ChartType == "bar" {
+			chart = SChart.GetBarChart(int64(chartID))
+		}
+
 		c.JSON(http.StatusOK, gin.H{"code": 0, "message": "ok", "data": chart})
 	})
 

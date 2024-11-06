@@ -48,6 +48,41 @@ func GetLineChart(chartID int64) map[string]interface{} {
 	return data
 }
 
+func GetBarChart(chartID int64) map[string]interface{} {
+	chart := DChart.GetChart(chartID)
+	chartDatasets := DChartDatasets.GetChartDatasets(chartID)
+	if len(chartDatasets) == 0 {
+		return nil
+	}
+
+	var datasets = map[string]interface{}{
+		"realtimeSort": true,
+		"type":         "bar",
+		"name":         chartDatasets[0].Label,
+		"data":         toArray(chartDatasets[0].ColumnData),
+		"label": map[string]interface{}{
+			"show":           true,
+			"position":       "right",
+			"valueAnimation": true,
+		},
+	}
+	var yAxis = map[string]interface{}{
+		"type":                    "category",
+		"data":                    toArray(chart.Labels),
+		"max":                     len(toArray(chart.Labels)),
+		"inverse":                 true,
+		"animationDuration":       300,
+		"animationDurationUpdate": 300,
+	}
+
+	data := map[string]interface{}{
+		"name":     chart.ChartName,
+		"yAxis":    yAxis,
+		"datasets": datasets,
+	}
+	return data
+}
+
 func GetTreeMapChart(chartID int64) map[string]interface{} {
 	chart := DChart.GetChart(chartID)
 	labels := toJsonArray(chart.Labels)
