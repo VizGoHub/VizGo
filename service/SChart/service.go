@@ -73,6 +73,11 @@ func GetBarChart(chartID int64) map[string]interface{} {
 		"inverse":                 true,
 		"animationDuration":       300,
 		"animationDurationUpdate": 300,
+		"show":                    true,
+		"axisLabel": map[string]interface{}{
+			"interval": 0,  // ensure all labels are shown
+			"rotate":   45, // rotate labels to avoid overlap
+		},
 	}
 
 	data := map[string]interface{}{
@@ -138,7 +143,7 @@ func GetALLCharts() []TChart.JChart {
 		item := TChart.JChart{
 			ChartID:    chart.ChartID,
 			CreateTime: chart.CreateTime,
-			ChartName:  chart.ChartType,
+			ChartName:  chart.ChartName,
 			ChartType:  chart.ChartType,
 			Labels:     chart.Labels,
 		}
