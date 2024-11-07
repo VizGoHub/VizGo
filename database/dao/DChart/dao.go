@@ -23,3 +23,23 @@ func GetChart(chartID int64) TChart.TChart {
 	database.GetDB().Model(&TChart.TChart{}).Where(&TChart.TChart{ChartID: chartID, Status: 1}).First(&row)
 	return row
 }
+
+func UpdateChart(chart TChart.TChart) (TChart.TChart, error) {
+	var row = TChart.TChart{
+		ChartName:    chart.ChartName,
+		ChartType:    chart.ChartType,
+		DataSourceID: chart.DataSourceID,
+		QuerySql:     chart.QuerySql,
+		ChartCode:    chart.ChartCode,
+	}
+	var err error
+	if chart.ChartID == 0 {
+		err = database.GetDB().Model(&TChart.TChart{}).Create(&row).Error
+	} else {
+		err = database.GetDB().
+			Model(&TChart.TChart{}).
+			Where(&TChart.TChart{ChartID: chart.ChartID}).
+			Updates(&row).Error
+	}
+	return row, err
+}

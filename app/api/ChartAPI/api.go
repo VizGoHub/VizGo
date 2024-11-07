@@ -1,6 +1,7 @@
 package ChartAPI
 
 import (
+	"VizGo/database/models/TChart"
 	"VizGo/service/SChart"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -17,24 +18,22 @@ func Run() {
 		charts := SChart.GetALLCharts()
 		c.JSON(http.StatusOK, gin.H{"code": 0, "message": "ok", "data": charts})
 	})
-	router.GET("/api/chart/:chartID", func(c *gin.Context) {
+
+	router.GET("/api/chartData/:chartID", func(c *gin.Context) {
 		chartID_ := c.Param("chartID")
 		chartID, _ := strconv.Atoi(chartID_)
-		chartBase := SChart.GetChart(int64(chartID))
-		var chart any
-		if chartBase.ChartType == "line" {
-			chart = SChart.GetLineChart(int64(chartID))
-		}
+		chartData := SChart.GetChartData(int64(chartID))
+		c.JSON(http.StatusOK, gin.H{"code": 0, "message": "ok", "data": chartData})
+	})
 
-		if chartBase.ChartType == "treemap" {
-			chart = SChart.GetTreeMapChart(int64(chartID))
+	router.POST("/api/updateChart", func(c *gin.Context) {
+		var chart TChart.TChart
+		if err := c.BindJSON(&chart); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"code": 1, "message": "Invalid request data"})
+			return
 		}
-
-		if chartBase.ChartType == "bar" {
-			chart = SChart.GetBarChart(int64(chartID))
-		}
-
-		c.JSON(http.StatusOK, gin.H{"code": 0, "message": "ok", "data": chart})
+		chartData := SChart.UpdateChart(chart)
+		c.JSON(http.StatusOK, gin.H{"code": 0, "message": "ok", "data": chartData})
 	})
 
 	router.Run(":8091")
