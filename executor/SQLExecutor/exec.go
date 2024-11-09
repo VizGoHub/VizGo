@@ -15,7 +15,7 @@ type SQLExecutor struct {
 	DB          *gorm.DB
 }
 
-func (ec *SQLExecutor) InitDB() {
+func (ec *SQLExecutor) InitDB() error {
 	var err error
 	var _DB *gorm.DB
 	if ec.Database == "mysql" {
@@ -27,6 +27,7 @@ func (ec *SQLExecutor) InitDB() {
 		logger.Fatal("failed to connect to database: %v", err)
 	}
 	ec.DB = _DB
+	return err
 }
 
 func (ec *SQLExecutor) Query(querySql string) ([]map[string]interface{}, error) {

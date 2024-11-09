@@ -36,18 +36,18 @@ func Worker() {
 }
 
 func job(chart TChart.TChart) {
-	//logger.Info(chart)
 	chartDatasets := DChartDatasets.GetChartDatasets(chart.ChartID)
-	//logger.Info(chartDatasets)
 
 	dataSource := DDataSource.GetDataSource(chart.DataSourceID)
-	//logger.Info(dataSource)
 
 	sqlExecutor := SQLExecutor.SQLExecutor{Database: dataSource.Database, DatabaseUrl: dataSource.DatabaseUrl}
-	sqlExecutor.InitDB()
+	errInitDB := sqlExecutor.InitDB()
+	if errInitDB != nil {
+		return
+	}
+
 	sqlResults, err := sqlExecutor.Query(chart.QuerySql)
 
-	//logger.Info(sqlResults)
 	var labels []string
 	if err == nil {
 		for _, result := range sqlResults {
@@ -76,7 +76,6 @@ func job(chart TChart.TChart) {
 		if len(columnData) > 0 {
 			marshal, errJ := json.Marshal(columnData)
 			if errJ == nil {
-				//logger.Info(string(marshal))
 				DChartDatasets.SetColumnData(chartDataset.ChartDatasetsID, string(marshal))
 			}
 		}
