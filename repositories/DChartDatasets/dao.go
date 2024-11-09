@@ -2,7 +2,7 @@ package DChartDatasets
 
 import (
 	"VizGo/database"
-	"VizGo/database/models/TChartDatasets"
+	"VizGo/models/TChartDatasets"
 )
 
 func GetChartDatasets(chartID int64) []TChartDatasets.TChartDatasets {

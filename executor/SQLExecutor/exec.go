@@ -1,13 +1,13 @@
 package SQLExecutor
 
 import (
-	"VizGo/libs"
+	"VizGo/utils"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
-var logger = libs.GetLogger()
+var logger = utils.GetLogger()
 
 type SQLExecutor struct {
 	Database    string

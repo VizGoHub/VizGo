@@ -1,8 +1,8 @@
 package ChartAPI
 
 import (
-	"VizGo/database/models/TChart"
-	"VizGo/service/SChart"
+	"VizGo/models/TChart"
+	"VizGo/services/SChart"
 	"encoding/base64"
 	"github.com/gin-gonic/gin"
 	"net/http"

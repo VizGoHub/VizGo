@@ -1,13 +1,13 @@
 package main
 
 import (
-	"VizGo/app/api/ChartAPI"
+	"VizGo/controllers/ChartAPI"
 	"VizGo/database"
 	"VizGo/jobs/JobChart"
-	"VizGo/libs"
+	"VizGo/utils"
 )
 
-var logger = libs.GetLogger()
+var logger = utils.GetLogger()
 
 func main() {
 	logger.Info("Viz IS Starting")

@@ -2,7 +2,7 @@ package DChart
 
 import (
 	"VizGo/database"
-	"VizGo/database/models/TChart"
+	"VizGo/models/TChart"
 )
 
 func GetALLCharts() []TChart.TChart {

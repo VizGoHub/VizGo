@@ -2,7 +2,7 @@ package DDataSource
 
 import (
 	"VizGo/database"
-	"VizGo/database/models/TDataSource"
+	"VizGo/models/TDataSource"
 )
 
 func GetDataSource(dataSourceID int64) TDataSource.TDataSource {

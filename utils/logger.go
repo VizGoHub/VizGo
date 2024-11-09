@@ -1,6 +1,7 @@
-package libs
+package utils
 
 import (
+	config2 "VizGo/config"
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -12,7 +13,7 @@ import (
 
 var hasInit = 0
 var logger = logrus.New()
-var config, _ = LoadConfig()
+var config, _ = config2.LoadConfig()
 
 type NoFieldNamesFormatter struct {
 	TimestampFormat string

@@ -1,18 +1,18 @@
 package JobChart
 
 import (
-	"VizGo/database/dao/DChart"
-	"VizGo/database/dao/DChartDatasets"
-	"VizGo/database/dao/DDataSource"
-	"VizGo/database/models/TChart"
 	"VizGo/executor/SQLExecutor"
-	"VizGo/libs"
+	"VizGo/models/TChart"
+	"VizGo/repositories/DChart"
+	"VizGo/repositories/DChartDatasets"
+	"VizGo/repositories/DDataSource"
+	"VizGo/utils"
 	"encoding/json"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
 
-var logger = libs.GetLogger()
+var logger = utils.GetLogger()
 var s = gocron.NewScheduler()
 
 func Run() {

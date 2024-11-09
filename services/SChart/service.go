@@ -1,13 +1,13 @@
 package SChart
 
 import (
-	"VizGo/database/dao/DChart"
-	"VizGo/database/dao/DChartDatasets"
-	"VizGo/database/models/TChart"
-	"VizGo/libs"
+	"VizGo/models/TChart"
+	"VizGo/repositories/DChart"
+	"VizGo/repositories/DChartDatasets"
+	"VizGo/utils"
 )
 
-var logger = libs.GetLogger()
+var logger = utils.GetLogger()
 
 func GetChartData(chartID int64) map[string]interface{} {
 	chart := DChart.GetChart(chartID)

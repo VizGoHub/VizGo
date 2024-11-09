@@ -1,17 +1,18 @@
 package database
 
 import (
-	"VizGo/database/models/TChart"
-	"VizGo/database/models/TChartDatasets"
-	"VizGo/database/models/TDataSource"
-	"VizGo/libs"
+	config2 "VizGo/config"
+	"VizGo/models/TChart"
+	"VizGo/models/TChartDatasets"
+	"VizGo/models/TDataSource"
+	"VizGo/utils"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
-var config, _ = libs.LoadConfig()
-var logger = libs.GetLogger()
+var config, _ = config2.LoadConfig()
+var logger = utils.GetLogger()
 var DB *gorm.DB
 
 func InitDB() {
