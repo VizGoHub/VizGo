@@ -24,7 +24,7 @@ func (ec *SQLExecutor) InitDB() error {
 		_DB, err = gorm.Open(sqlite.Open(ec.DatabaseUrl), &gorm.Config{})
 	}
 	if err != nil {
-		logger.Fatal("failed to connect to database: %v", err)
+		logger.Fatalf("failed to connect to database: %v", err)
 	}
 	ec.DB = _DB
 	return err
