@@ -2,6 +2,7 @@ package SQLExecutor
 
 import (
 	"VizGo/utils"
+	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -20,12 +21,18 @@ func (ec *SQLExecutor) InitDB() error {
 	var _DB *gorm.DB
 	if ec.Database == "mysql" {
 		_DB, err = gorm.Open(mysql.Open(ec.DatabaseUrl), &gorm.Config{})
+		if err != nil {
+			logger.Error("failed to connect to database")
+			return fmt.Errorf("failed to connect to database")
+		}
 	} else if ec.Database == "sqlite" {
 		_DB, err = gorm.Open(sqlite.Open(ec.DatabaseUrl), &gorm.Config{})
+		if err != nil {
+			logger.Error("failed to connect to database")
+			return fmt.Errorf("failed to connect to database")
+		}
 	}
-	if err != nil {
-		logger.Fatalf("failed to connect to database: %v", err)
-	}
+
 	ec.DB = _DB
 	return err
 }
